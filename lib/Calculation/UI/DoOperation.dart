@@ -6,15 +6,12 @@ import 'package:taske/Calculation/Model/Nums.dart';
 class DoOperation {
   // ignore: missing_return
   Future<double> doOperation(Nums nums, int seconds) async {
-    Timer(
-      Duration(seconds: seconds),
-      () => result(nums.fNum, nums.sNum, nums.operation, nums),
-    );
+    result(nums.fNum, nums.sNum, nums.operation, nums, seconds);
   }
 
   //GET RESULT
-  double result(double firstNum, double secondNum, var operation, Nums nums) {
-
+  double result(double firstNum, double secondNum, var operation, Nums nums,
+      int seconds) {
     double result;
 
     switch (operation) {
@@ -49,10 +46,11 @@ class DoOperation {
         break;
     }
 
-    nums.setResults('$result'); //ADD TO LIST
-    nums.setisPending(false);  //SET PENDING FALSE
+    Timer(Duration(seconds: seconds), () {
+      nums.setResults('$result'); //ADD TO LIST
+      nums.setisPending(false); //SET PENDING FALSE
+    });
 
-    print('zolla$result');
 
     return result;
   }
